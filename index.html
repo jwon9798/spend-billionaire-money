@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>부자의 삶 체험하기 — 이재용·머스크의 돈을 다 써보자</title>
+<meta name="description" content="이재용, 김범수, 일론 머스크, 빌 게이츠… Forbes 2026 실제 자산으로 부자의 삶을 체험하세요. 100+ 아이템, 60초 챌린지, 영수증 공유!" />
+<meta name="keywords" content="부자의 삶 체험하기, 부자 돈쓰기, 이재용 돈, 머스크 돈, spend money, 빌게이츠" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="부자의 삶 체험하기 — 이 많은 돈, 다 쓸 수 있을까?" />
+<meta property="og:description" content="Forbes 2026 실제 부자들의 자산을 한국 물가로 직접 써보세요. 강남 아파트도 우습게 보입니다." />
+<meta property="og:image" content="og-cover.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="icon" type="image/png" href="icon.png" />
+<link rel="apple-touch-icon" href="icon.png" />
+<script src="ads-config.js"></script>
+<script src="ads-init.js" defer></script>
+<style>
+  :root{
+    --bg:#0b0d12; --panel:#151922; --panel2:#1c2230; --line:#2a3242;
+    --text:#eef2f8; --muted:#9aa6bb; --accent:#37e0a6; --accent2:#ffd34e;
+    --danger:#ff5c7a; --radius:16px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--bg);color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;}
+  body{padding-bottom:90px}
+  a{color:var(--accent)}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 16px}
+
+  header.hero{text-align:center;padding:30px 16px 6px}
+  header.hero .app-icon{width:72px;height:72px;border-radius:18px;margin:0 auto 12px;display:block;box-shadow:0 8px 28px rgba(55,224,166,.18)}
+  header.hero h1{font-size:30px;letter-spacing:-.5px}
+  header.hero p{color:var(--muted);margin-top:8px;font-size:15px}
+  .proof{color:var(--accent2);font-size:13px;margin-top:8px;font-weight:600}
+
+  .pickbar{margin:16px 0 8px}
+  .pickbar h2{font-size:13px;color:var(--muted);font-weight:600;margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em}
+  .people{display:flex;gap:10px;overflow-x:auto;padding-bottom:8px;scrollbar-width:thin}
+  .person{flex:0 0 auto;cursor:pointer;background:var(--panel);border:1.5px solid var(--line);
+    border-radius:14px;padding:10px 14px;min-width:138px;transition:.15s;text-align:left}
+  .person:hover{border-color:var(--accent)}
+  .person.active{border-color:var(--accent);background:var(--panel2);box-shadow:0 0 0 2px rgba(55,224,166,.18)}
+  .person .emoji{font-size:22px}
+  .person .nm{font-weight:700;margin-top:4px;font-size:15px}
+  .person .src{font-size:11px;color:var(--muted)}
+  .person .nw{font-size:12px;color:var(--accent2);font-weight:700;margin-top:3px}
+  .person.me{border-style:dashed}
+
+  .balance{position:sticky;top:0;z-index:30;background:rgba(11,13,18,.9);
+    backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding:11px 0;margin-top:6px}
+  .balance .inner{display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .balance .who{font-size:13px;color:var(--muted)}
+  .balance .who b{color:var(--text)}
+  .balance .amt{font-size:25px;font-weight:800;color:var(--accent)}
+  .balance .amt.low{color:var(--accent2)}
+  .balance .amt.zero{color:var(--danger)}
+  .balance .meta{font-size:11px;color:var(--muted);margin-top:1px}
+  .balance .bar{height:6px;background:var(--panel2);border-radius:4px;overflow:hidden;margin-top:8px}
+  .balance .bar i{display:block;height:100%;background:var(--accent);width:100%;transition:.25s}
+  .balance .actions{display:flex;gap:8px;align-items:center}
+  button.btn{cursor:pointer;border:none;border-radius:10px;font-weight:700;font-size:13px;padding:9px 13px}
+  .btn.primary{background:var(--accent);color:#062018}
+  .btn.warn{background:var(--accent2);color:#2a2200}
+  .btn.ghost{background:var(--panel2);color:var(--text);border:1px solid var(--line)}
+  .btn.icon{background:var(--panel2);color:var(--text);border:1px solid var(--line);padding:9px 11px}
+  .btn:active{transform:translateY(1px)}
+  .countdown{font-weight:800;color:var(--accent2);font-size:15px}
+
+  .toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:16px 0 4px}
+  .search{flex:1;min-width:160px;background:#0e1118;border:1px solid var(--line);color:var(--text);
+    border-radius:10px;height:38px;padding:0 12px;font-size:14px;outline:none}
+  .tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:6px;margin-top:8px}
+  .tab{flex:0 0 auto;cursor:pointer;background:var(--panel);border:1px solid var(--line);color:var(--muted);
+    border-radius:999px;padding:7px 13px;font-size:13px;font-weight:600;white-space:nowrap}
+  .tab.active{background:var(--accent);color:#062018;border-color:var(--accent)}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px;margin-top:14px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:14px;display:flex;flex-direction:column}
+  .card.owned{border-color:var(--accent)}
+  .card .emoji{font-size:34px}
+  .card .name{font-weight:700;margin-top:6px;font-size:15px}
+  .card .price{color:var(--muted);font-size:13px;margin-top:2px}
+  .card .ctrls{display:flex;align-items:center;gap:8px;margin-top:12px}
+  .card .ctrls button{width:36px;height:36px;border-radius:9px;border:1px solid var(--line);
+    background:var(--panel2);color:var(--text);font-size:20px;font-weight:700;cursor:pointer}
+  .card .ctrls button:disabled{opacity:.35;cursor:not-allowed}
+  .card .ctrls input{flex:1;width:100%;text-align:center;background:#0e1118;border:1px solid var(--line);
+    color:var(--text);border-radius:9px;height:36px;font-size:15px;font-weight:700}
+  .card .spent{font-size:12px;color:var(--accent);margin-top:8px;min-height:16px;font-weight:600}
+  .card .buy{margin-top:10px;font-size:12px;color:var(--muted);text-decoration:none;border:1px solid var(--line);
+    border-radius:8px;padding:5px 9px;display:inline-block;align-self:flex-start}
+  .card .buy:hover{border-color:var(--accent);color:var(--accent)}
+  .card .buy.note{cursor:default;border-style:dashed;color:var(--muted)}
+  .card .buy.note:hover{border-color:var(--line);color:var(--muted)}
+  .addbar{display:none;align-items:center;gap:10px;margin:12px 0 0;background:var(--panel);border:1px solid var(--line);
+    border-radius:10px;padding:11px 13px;font-size:13px;flex-wrap:wrap}
+  .addbar.show{display:flex}
+  .addbar a{color:var(--accent2);font-weight:600}
+  .addbar button{cursor:pointer;background:var(--accent);color:#062018;border:none;border-radius:8px;padding:8px 13px;font-weight:700;font-size:13px}
+
+  .ad-slot{margin:18px 0;min-height:100px;display:flex;align-items:center;justify-content:center;
+    border-radius:12px;overflow:hidden}
+  .ad-slot:not(.ad-live){border:1px dashed var(--line);color:#5b6680;font-size:12px}
+  footer{ text-align:center;color:var(--muted);font-size:12px;padding:26px 16px}
+
+  .modal{position:fixed;inset:0;background:rgba(0,0,0,.65);display:none;align-items:center;justify-content:center;z-index:60;padding:16px}
+  .modal.open{display:flex}
+  .sheet{background:var(--panel);border:1px solid var(--line);border-radius:18px;max-width:460px;width:100%;max-height:92vh;overflow:auto;padding:18px}
+  .sheet h3{font-size:18px;margin-bottom:6px}
+  .sheet .sub{color:var(--muted);font-size:13px;margin-bottom:12px}
+  #cardCanvas{width:100%;border-radius:12px;border:1px solid var(--line);background:#0e1118}
+  .sheet .row{display:flex;gap:8px;margin-top:12px}
+  .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);opacity:0;
+    background:var(--accent);color:#062018;font-weight:700;padding:11px 18px;border-radius:999px;font-size:14px;transition:.25s;z-index:90;pointer-events:none}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  @media(max-width:520px){header.hero h1{font-size:22px}.balance .amt{font-size:20px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <img class="app-icon" src="icon.png" width="72" height="72" alt="부자의 삶 체험하기" />
+    <h1>부자의 삶 체험하기</h1>
+    <p>Forbes 2026 <b>실제 부자</b>의 자산을 한국 물가로 써보세요. 0원까지 만들 수 있을까요?</p>
+    <div class="proof" id="proof"></div>
+  </header>
+
+  <div class="pickbar">
+    <h2>누구의 돈을 쓸까요?</h2>
+    <div class="people" id="people"></div>
+  </div>
+</div>
+
+<div class="balance">
+  <div class="wrap">
+    <div class="inner">
+      <div>
+        <div class="who"><b id="whoName">이재용</b> 님의 잔액</div>
+        <div class="amt" id="amount">0원</div>
+        <div class="meta" id="meta"></div>
+      </div>
+      <div class="actions">
+        <span class="countdown" id="countdown"></span>
+        <button class="btn icon" id="soundBtn" title="소리">🔊</button>
+        <button class="btn warn" id="challengeBtn">⏱ 60초 챌린지</button>
+        <button class="btn ghost" id="resetBtn">초기화</button>
+        <button class="btn primary" id="receiptBtn">영수증/공유</button>
+      </div>
+    </div>
+    <div class="bar"><i id="bar"></i></div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="toolbar">
+    <input class="search" id="search" placeholder="🔎 아이템 검색 (예: 아이폰, 아파트, 요트)" />
+  </div>
+  <div class="addbar" id="addbar"></div>
+  <div class="tabs" id="tabs"></div>
+  <div class="ad-slot" data-ad-pos="top">광고 로딩 중…</div>
+  <div class="grid" id="grid"></div>
+  <div class="ad-slot" data-ad-pos="bottom">광고 로딩 중…</div>
+</div>
+
+<footer>
+  재미로 보는 게임입니다 · 부자 자산: Forbes Korea「2026 대한민국 50대 부자」(2026.4.28·3.27 장마감) / Forbes「World's Billionaires 2026」(2026.3.10·3.1 환율) · 가격: 2026 공식 출고가·국토부 실거래·Forbes·Reuters 등 공개 자료<br/>
+  환율: 한국 부자 ≒1,478원/$, 글로벌 부자 ≒1,380원/$ · 각 아이템의 '🛒'는 쇼핑몰 검색, '🏷️'는 시세·시총·낙찰가 기준<br/>
+  © 2026 부자의 삶 체험하기
+</footer>
+
+<div class="modal" id="modal">
+  <div class="sheet">
+    <h3 id="sheetTitle">나의 소비 영수증 🧾</h3>
+    <div class="sub" id="sheetSub">이미지를 저장해서 자랑하세요!</div>
+    <canvas id="cardCanvas" width="900" height="1200"></canvas>
+    <div class="row">
+      <button class="btn primary" id="downloadBtn" style="flex:1">이미지 저장</button>
+      <button class="btn warn" id="shareBtn" style="flex:1">공유/복사</button>
+      <button class="btn ghost" id="closeBtn">닫기</button>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const FX_KR = 1478;  // Forbes Korea 2026.3.27 장마감 (포브스코리아 2026.4.28)
+const FX_W  = 1380;  // Forbes World Billionaires 2026.3.1
+const usdW = b => Math.round(b * 1e9 * FX_W);
+
+const PEOPLE = [
+  {id:'leejy', name:'이재용', src:'삼성전자', emoji:'📱', won:31_916_100_000_000},
+  {id:'kimbj', name:'김병주', src:'MBK파트너스', emoji:'💼', won:14_628_200_000_000},
+  {id:'seojj', name:'서정진', src:'셀트리온', emoji:'💊', won:11_968_500_000_000},
+  {id:'jojh', name:'조정호', src:'메리츠금융', emoji:'🏦', won:11_820_800_000_000},
+  {id:'jeonges', name:'정의선', src:'현대차그룹', emoji:'🏎️', won:9_308_800_000_000},
+  {id:'kimbs', name:'김범수', src:'카카오', emoji:'💬', won:5_614_800_000_000},
+  {id:'kwonhb', name:'권혁빈', src:'스마일게이트', emoji:'🎮', won:4_580_500_000_000},
+  {id:'chungyj', name:'정용진', src:'신세계', emoji:'🛒', won:3_102_900_000_000},
+  {id:'leehj', name:'이해진', src:'네이버', emoji:'🟢', won:2_127_700_000_000},
+  {id:'bang', name:'방시혁', src:'HYBE', emoji:'🎤', won:1_847_000_000_000},
+  {id:'musk', name:'일론 머스크', src:'테슬라·SpaceX', emoji:'🚀', won:usdW(839)},
+  {id:'page', name:'래리 페이지', src:'Alphabet(구글)', emoji:'🔎', won:usdW(257)},
+  {id:'bezos', name:'제프 베이조스', src:'아마존', emoji:'📦', won:usdW(224)},
+  {id:'zuck', name:'마크 저커버그', src:'Meta', emoji:'👓', won:usdW(222)},
+  {id:'arnault', name:'베르나르 아르노', src:'LVMH', emoji:'👜', won:usdW(171)},
+  {id:'buffett', name:'워런 버핏', src:'버크셔', emoji:'📈', won:usdW(149)},
+  {id:'gates', name:'빌 게이츠', src:'Microsoft·Foundation', emoji:'🪟', won:usdW(108)},
+  {id:'me', name:'나 (직접 입력)', src:'클릭해서 금액 입력', emoji:'🙋', won:50_000_000, custom:true},
+];
+
+const CATS = [
+  {id:'all', name:'전체'},
+  {id:'food', name:'음식·일상'},
+  {id:'tech', name:'전자기기'},
+  {id:'fashion', name:'패션·명품'},
+  {id:'car', name:'자동차'},
+  {id:'estate', name:'부동산'},
+  {id:'luxury', name:'럭셔리·취미'},
+  {id:'special', name:'특수·거대'},
+  {id:'mega', name:'초호화·메가'},
+];
+
+const ITEMS = [
+  // 음식·일상
+  {id:'saewookkang', name:'새우깡', emoji:'🍤', price:1500, cat:'food'},
+  {id:'coffee', name:'메가커피 아메리카노', emoji:'☕', price:2000, cat:'food'},
+  {id:'tteok', name:'떡볶이 1인분', emoji:'🌶️', price:4000, cat:'food'},
+  {id:'sbux', name:'스타벅스 아메리카노', emoji:'☕', price:4500, cat:'food'},
+  {id:'bigmac', name:'빅맥 단품', emoji:'🍔', price:5700, cat:'food'},
+  {id:'kimbap', name:'김밥천국 한 끼', emoji:'🍱', price:8000, cat:'food'},
+  {id:'movie', name:'영화 티켓(CGV)', emoji:'🎬', price:15000, cat:'food'},
+  {id:'book', name:'책 한 권', emoji:'📚', price:18000, cat:'food'},
+  {id:'chicken', name:'치킨 한 마리(배달)', emoji:'🍗', price:26000, cat:'food'},
+  {id:'omakase', name:'한우 오마카세 1인', emoji:'🥩', price:150000, cat:'food'},
+  {id:'netflix', name:'넷플릭스 1년(스탠다드)', emoji:'📺', price:204000, cat:'food'},
+  {id:'wolse', name:'서울 외곽 원룸 월세', emoji:'🏚️', price:850000, cat:'food'},
+  {id:'tuition', name:'사립대 등록금 1년', emoji:'🎓', price:16000000, cat:'food'},
+  // 전자기기
+  {id:'airpods', name:'에어팟 프로 2', emoji:'🎧', price:359000, cat:'tech'},
+  {id:'padding', name:'노스페이스 패딩', emoji:'🧥', price:400000, cat:'tech'},
+  {id:'ps5', name:'플레이스테이션 5', emoji:'🎮', price:628000, cat:'tech'},
+  {id:'dyson', name:'다이슨 V15 청소기', emoji:'🧹', price:990000, cat:'tech'},
+  {id:'iphone', name:'아이폰 16 Pro (256GB)', emoji:'📱', price:1698000, cat:'tech'},
+  {id:'zfold', name:'갤럭시 Z Fold7 (256GB)', emoji:'📲', price:2379300, cat:'tech'},
+  {id:'macbook', name:'맥북 프로 14 (M4)', emoji:'💻', price:2490000, cat:'tech'},
+  {id:'tv98', name:'삼성 98인치 Neo QLED', emoji:'📺', price:25000000, cat:'tech'},
+  // 패션·명품
+  {id:'jordan', name:'나이키 조던', emoji:'👟', price:250000, cat:'fashion'},
+  {id:'lvwallet', name:'루이비통 지갑', emoji:'👛', price:800000, cat:'fashion'},
+  {id:'gucci', name:'구찌 신발', emoji:'🥿', price:1200000, cat:'fashion'},
+  {id:'rolex', name:'롤렉스 서브마리너', emoji:'⌚', price:15540000, cat:'fashion'},
+  {id:'chanel', name:'샤넬 클래식백', emoji:'👜', price:20000000, cat:'fashion'},
+  {id:'ring', name:'2캐럿 다이아 반지', emoji:'💍', price:30000000, cat:'fashion'},
+  {id:'birkin', name:'에르메스 버킨백', emoji:'👜', price:35000000, cat:'fashion'},
+  // 자동차
+  {id:'morning', name:'기아 모닝(경차)', emoji:'🚙', price:15800000, cat:'car'},
+  {id:'avante', name:'현대 아반떼', emoji:'🚗', price:22400000, cat:'car'},
+  {id:'genesis', name:'제네시스 G80 (2.5T)', emoji:'🚘', price:59780000, cat:'car'},
+  {id:'sclass', name:'벤츠 S클래스', emoji:'🚖', price:150000000, cat:'car'},
+  {id:'porsche', name:'포르쉐 911 Carrera GTS', emoji:'🏎️', price:240700000, cat:'car'},
+  {id:'lambo', name:'람보르기니 우루스 SE', emoji:'🐂', price:340000000, cat:'car'},
+  {id:'ferrari', name:'페라리 로마', emoji:'🐎', price:500000000, cat:'car'},
+  {id:'bugatti', name:'부가티 시론', emoji:'🏁', price:5249400000, cat:'car'},
+  // 부동산 (2026.2 국토부 실거래·다방 평당가 × 85㎡)
+  {id:'aptseoul', name:'서울 강남外 85㎡ 아파트', emoji:'🏠', price:1067000000, cat:'estate'},
+  {id:'aptgangnam', name:'강남3구 85㎡ 아파트', emoji:'🏢', price:2172000000, cat:'estate'},
+  {id:'apgujeong', name:'압구정 현대 115㎡', emoji:'🏙️', price:5800000000, cat:'estate'},
+  {id:'penthouse', name:'한강뷰 펜트하우스', emoji:'🌆', price:10000000000, cat:'estate', nobuy:true},
+  {id:'building', name:'강남 꼬마빌딩', emoji:'🏬', price:30000000000, cat:'estate', nobuy:true},
+  {id:'resort', name:'제주도 리조트', emoji:'🏝️', price:200000000000, cat:'estate', nobuy:true},
+  // 럭셔리·취미
+  {id:'wedding', name:'호화 호텔 결혼식', emoji:'💒', price:100000000, cat:'luxury'},
+  {id:'space', name:'Virgin Galactic 우주여행', emoji:'🚀', price:1035000000, cat:'luxury', nobuy:true},
+  {id:'horse', name:'경주마 1두', emoji:'🐴', price:1000000000, cat:'luxury', nobuy:true},
+  {id:'yacht', name:'슈퍼요트', emoji:'🛥️', price:30000000000, cat:'luxury', nobuy:true},
+  {id:'island', name:'개인 섬', emoji:'🏝️', price:80000000000, cat:'luxury', nobuy:true},
+  {id:'jet', name:'보잉 747 VIP (BBJ)', emoji:'✈️', price:204000000000, cat:'luxury', nobuy:true},
+  {id:'monalisa', name:'모나리자 추정가치', emoji:'🖼️', price:1173000000000, cat:'luxury', nobuy:true},
+  // 특수·거대 — 쇼핑앱에 없는 자산·인프라·M&A·대형 프로젝트 (시세·낙찰·공사비 기준)
+  {id:'golf', name:'알펜시아 골프 회원권', emoji:'⛳', price:500000000, cat:'special'},
+  {id:'michelin', name:'미슐린 3스타 레스토랑 1년', emoji:'🍽️', price:3000000000, cat:'special', nobuy:true},
+  {id:'plate', name:'서울 1번 차량번호판', emoji:'🔢', price:300000000, cat:'special', nobuy:true},
+  {id:'train', name:'KTX 고속열차 1편성(8량)', emoji:'🚄', price:90000000000, cat:'special', nobuy:true},
+  {id:'nseoul', name:'N서울타워 매입', emoji:'🗼', price:200000000000, cat:'special', nobuy:true},
+  {id:'lwtower', name:'롯데월드타워 건물', emoji:'🏙️', price:5000000000000, cat:'special', nobuy:true},
+  {id:'hanok', name:'북촌 한옥 전통가옥', emoji:'🏯', price:8000000000, cat:'special', nobuy:true},
+  {id:'hanam', name:'한남더힐 최고층 펜트', emoji:'🌃', price:15000000000, cat:'special', nobuy:true},
+  {id:'busanhotel', name:'부산 해운대 랜드마크 호텔', emoji:'🏨', price:800000000000, cat:'special', nobuy:true},
+  {id:'cu500', name:'전국 편의점(CU) 500호점', emoji:'🏪', price:150000000000, cat:'special', nobuy:true},
+  {id:'btscon', name:'BTS 스타디움 공연 전석 매입', emoji:'🎤', price:200000000000, cat:'special', nobuy:true},
+  {id:'worldtour', name:'K-pop 월드투어 50개 도시 스폰서', emoji:'🌍', price:500000000000, cat:'special', nobuy:true},
+  {id:'avatar', name:'블록버스터 영화 제작($400M)', emoji:'🎬', price:552000000000, cat:'special', nobuy:true},
+  {id:'smacq', name:'SM엔터 전량 인수(시총)', emoji:'🎵', price:1900000000000, cat:'special', nobuy:true},
+  {id:'hybe10', name:'HYBE 지분 10%(시총)', emoji:'💿', price:1200000000000, cat:'special', nobuy:true},
+  {id:'t1', name:'T1 e스포츠 팀(추정)', emoji:'🎮', price:566000000000, cat:'special', nobuy:true},
+  {id:'lions', name:'KBO 프로야구단', emoji:'🦁', price:250000000000, cat:'special', nobuy:true},
+  {id:'transfer', name:'세계 최고 이적료급(€222M)', emoji:'⚽', price:306000000000, cat:'special', nobuy:true},
+  {id:'f35', name:'F-35A 전투기 1대', emoji:'🛩️', price:113850000000, cat:'special', nobuy:true},
+  {id:'carrier', name:'미 Gerald R. Ford급 항모', emoji:'🛳️', price:18216000000000, cat:'special', nobuy:true},
+  {id:'falcon', name:'SpaceX Falcon Heavy 1회', emoji:'🚀', price:207000000000, cat:'special', nobuy:true},
+  {id:'satellite', name:'통신위성 1기', emoji:'🛰️', price:800000000000, cat:'special', nobuy:true},
+  {id:'nuclear', name:'원자력발전소 1기', emoji:'⚛️', price:7000000000000, cat:'special', nobuy:true},
+  {id:'solar100', name:'태양광발전소 100MW', emoji:'☀️', price:150000000000, cat:'special', nobuy:true},
+  {id:'datacenter', name:'하이퍼스케일 데이터센터', emoji:'🖥️', price:600000000000, cat:'special', nobuy:true},
+  {id:'supercomp', name:'AI 슈퍼컴퓨터(Frontier급)', emoji:'🧠', price:828000000000, cat:'special', nobuy:true},
+  {id:'goldmine', name:'중형 금광 1개', emoji:'⛏️', price:500000000000, cat:'special', nobuy:true},
+  {id:'oilfield', name:'중형 원유 유전', emoji:'🛢️', price:2000000000000, cat:'special', nobuy:true},
+  {id:'strad', name:'스트라디바리우스 바이올린', emoji:'🎻', price:20000000000, cat:'special', nobuy:true},
+  {id:'patek', name:'파텍필립 GM 6300', emoji:'⌚', price:42780000000, cat:'special', nobuy:true},
+  {id:'diamond100', name:'100캐럿 다이아몬드', emoji:'💎', price:150000000000, cat:'special', nobuy:true},
+  {id:'a380', name:'에어버스 A380 1대', emoji:'✈️', price:614000000000, cat:'special', nobuy:true},
+  {id:'f1red', name:'F1 레드불 Racing 10% 지분', emoji:'🏎️', price:300000000000, cat:'special', nobuy:true},
+  {id:'nbalakers', name:'NBA LA 레이커스', emoji:'🏀', price:13800000000000, cat:'special', nobuy:true},
+  {id:'bluehouse', name:'청와대 1일 단독 대관', emoji:'🏛️', price:5000000000, cat:'special', nobuy:true},
+  {id:'tunnel', name:'영덕-울릉 해저터널', emoji:'🚇', price:1400000000000, cat:'special', nobuy:true},
+  {id:'runway', name:'인천공항 4활주로 건설', emoji:'🛫', price:5000000000000, cat:'special', nobuy:true},
+  {id:'bridge', name:'한강대교 통매입', emoji:'🌉', price:500000000000, cat:'special', nobuy:true},
+  {id:'picasso', name:'피카소 경매 최고가($179M)', emoji:'🎨', price:247020000000, cat:'special', nobuy:true},
+  {id:'opera', name:'세계 오페라극장 1년 단독', emoji:'🎭', price:300000000000, cat:'special', nobuy:true},
+  // 초호화·메가
+  {id:'ballclub', name:'KBO 프로야구단', emoji:'⚾', price:250000000000, cat:'mega', nobuy:true},
+  {id:'tower', name:'63빌딩 통매입', emoji:'🏗️', price:1170000000000, cat:'mega', nobuy:true},
+  {id:'cruise', name:'크루즈선', emoji:'🚢', price:1280000000000, cat:'mega', nobuy:true},
+  {id:'eplclub', name:'EPL 빅6 구단(Forbes)', emoji:'🏟️', price:8280000000000, cat:'mega', nobuy:true},
+  {id:'chipfab', name:'반도체 파운드리 공장', emoji:'🏭', price:20000000000000, cat:'mega', nobuy:true},
+  {id:'ss1pct', name:'삼성전자 1% 지분(시총)', emoji:'📱', price:21390000000000, cat:'mega', nobuy:true},
+  {id:'tsla1pct', name:'테슬라 1% 지분(시총)', emoji:'⚡', price:20755200000000, cat:'mega', nobuy:true},
+  {id:'meta1pct', name:'Meta 1% 지분(시총)', emoji:'👓', price:21983400000000, cat:'mega', nobuy:true},
+  {id:'openai1', name:'OpenAI 1% 지분($852B)', emoji:'🤖', price:11757600000000, cat:'mega', nobuy:true},
+  {id:'nflcow', name:'NFL 달라스 카우보이스', emoji:'🏈', price:17940000000000, cat:'mega', nobuy:true},
+  {id:'disney', name:'디즈니랜드 파크 1개', emoji:'🏰', price:3500000000000, cat:'mega', nobuy:true},
+  {id:'subway', name:'서울 지하철 2호선 전체', emoji:'🚇', price:8000000000000, cat:'mega', nobuy:true},
+];
+
+let current = PEOPLE[0];
+let qty = {};
+let curCat = 'all';
+let searchText = '';
+let soundOn = true;
+let challengeEnd = 0, challengeTimer = null;
+
+// 쿠팡 파트너스 사용 시 본인 트래킹 ID로 교체 (예: 'AF1234567')
+const COUPANG_PARTNER_TAG = '';
+function buyLink(it){
+  if(it.link) return it.link;
+  const base = 'https://www.coupang.com/np/search?q='+encodeURIComponent(it.name);
+  return base; // 파트너스 적용 시 딥링크 변환 필요(서버측 HMAC 서명)
+}
+
+function formatKRW(n){
+  n=Math.round(n);if(n<=0)return '0원';
+  const units=[[1e12,'조'],[1e8,'억'],[1e4,'만'],[1,'']];
+  let parts=[],rem=n;
+  for(const [val,name] of units){if(rem>=val){const q=Math.floor(rem/val);rem%=val;parts.push(q.toLocaleString('en-US')+name);}}
+  return parts.slice(0,2).join(' ')+'원';
+}
+function spent(){let s=0;for(const it of ITEMS)s+=(qty[it.id]||0)*it.price;return s;}
+function remaining(){return current.won-spent();}
+function pctSpent(){return current.won>0?spent()/current.won:0;}
+function grade(){
+  const r=pctSpent();
+  if(r>=1) return {t:'전설의 큰손',e:'👑'};
+  if(r>=0.7) return {t:'진정한 재벌',e:'💎'};
+  if(r>=0.4) return {t:'플렉스 마스터',e:'🔥'};
+  if(r>=0.15) return {t:'큰손 견습생',e:'💸'};
+  if(r>0) return {t:'짠돌이',e:'🐣'};
+  return {t:'구경꾼',e:'👀'};
+}
+
+/* sound */
+let actx;
+function chaching(){
+  if(!soundOn)return;
+  try{actx=actx||new (window.AudioContext||window.webkitAudioContext)();
+    const o=actx.createOscillator(),g=actx.createGain();
+    o.connect(g);g.connect(actx.destination);o.type='triangle';
+    o.frequency.setValueAtTime(880,actx.currentTime);
+    o.frequency.exponentialRampToValueAtTime(1320,actx.currentTime+0.08);
+    g.gain.setValueAtTime(0.18,actx.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.0001,actx.currentTime+0.18);
+    o.start();o.stop(actx.currentTime+0.2);
+  }catch(e){}
+}
+
+/* social proof */
+function bumpPlays(){let n=parseInt(localStorage.getItem('spend_plays')||'0',10)+1;localStorage.setItem('spend_plays',n);return n;}
+function renderProof(){
+  const local=parseInt(localStorage.getItem('spend_plays')||'0',10);
+  document.getElementById('proof').textContent=local>0?`🔥 이 기기에서 ${local.toLocaleString('en-US')}번 체험함`:'Forbes 2026 실제 자산·가격 데이터';
+}
+
+function renderPeople(){
+  const el=document.getElementById('people');el.innerHTML='';
+  for(const p of PEOPLE){
+    const d=document.createElement('div');
+    d.className='person'+(p.id===current.id?' active':'')+(p.custom?' me':'');
+    d.innerHTML=`<div class="emoji">${p.emoji}</div><div class="nm">${p.name}</div>
+      <div class="src">${p.src}</div><div class="nw">${formatKRW(p.won)}</div>`;
+    d.onclick=()=>{
+      if(p.custom){
+        const v=prompt('당신의 돈은 얼마인가요? (원 단위 숫자로 입력)\n예: 연봉 5천만원이면 50000000','50000000');
+        if(v===null)return;
+        const num=parseInt((v||'').replace(/[^0-9]/g,''),10);
+        if(!num||num<=0)return;
+        p.won=num;
+      }
+      current=p;qty={};stopChallenge();renderAll();window.scrollTo({top:0,behavior:'smooth'});
+    };
+    el.appendChild(d);
+  }
+}
+function catList(){
+  const cats=CATS.slice();
+  if(ITEMS.some(it=>it.cat==='mine')) cats.push({id:'mine',name:'⭐ 내 아이템'});
+  return cats;
+}
+function renderTabs(){
+  const el=document.getElementById('tabs');el.innerHTML='';
+  for(const c of catList()){
+    const t=document.createElement('div');t.className='tab'+(c.id===curCat?' active':'');
+    t.textContent=c.name;t.onclick=()=>{curCat=c.id;renderTabs();renderGrid();};
+    el.appendChild(t);
+  }
+}
+function renderAddbar(){
+  const el=document.getElementById('addbar');
+  if(!searchText){el.className='addbar';el.innerHTML='';return;}
+  const exists=ITEMS.some(it=>it.name===searchText);
+  el.className='addbar show';
+  el.innerHTML=`<span>'${searchText}' ${exists?'이미 목록에 있어요.':'을(를) 직접 추가할까요?'}</span>
+    <a href="https://search.shopping.naver.com/search/all?query=${encodeURIComponent(searchText)}" target="_blank" rel="noopener nofollow">🔎 네이버쇼핑에서 가격 보기</a>
+    ${exists?'':'<button id="addItemBtn">➕ 추가</button>'}`;
+  const b=document.getElementById('addItemBtn');
+  if(b)b.onclick=()=>addCustomItem(searchText);
+}
+function addCustomItem(name){
+  const pv=prompt(`'${name}'의 가격을 입력하세요 (원 단위 숫자)\n네이버쇼핑에서 확인한 실제 가격을 넣어보세요.`,'');
+  if(pv===null)return;
+  const price=parseInt((pv||'').replace(/[^0-9]/g,''),10);
+  if(!price||price<=0){toast('가격을 올바르게 입력해주세요');return;}
+  const emoji=(prompt('이모지 하나 (선택, 비워도 됨)','🛍️')||'🛍️').trim()||'🛍️';
+  ITEMS.push({id:'c'+Date.now(),name,emoji,price,cat:'mine',custom:true});
+  searchText='';document.getElementById('search').value='';
+  curCat='mine';renderTabs();renderAddbar();renderGrid();
+  toast(`'${name}' 추가 완료! ⭐`);
+}
+function visibleItems(){
+  return ITEMS.filter(it=>(curCat==='all'||it.cat===curCat)&&(!searchText||it.name.includes(searchText)));
+}
+function renderGrid(){
+  const el=document.getElementById('grid');el.innerHTML='';
+  const rem=remaining();const list=visibleItems();
+  if(list.length===0){el.innerHTML='<div style="color:var(--muted);padding:20px">검색 결과가 없어요.</div>';return;}
+  for(const it of list){
+    const c=qty[it.id]||0;
+    const card=document.createElement('div');card.className='card'+(c>0?' owned':'');
+    card.innerHTML=`<div class="emoji">${it.emoji}</div>
+      <div class="name">${it.name}</div>
+      <div class="price">${formatKRW(it.price)}</div>
+      <div class="ctrls">
+        <button data-m="-1" ${c<=0?'disabled':''}>−</button>
+        <input type="text" inputmode="numeric" value="${c.toLocaleString('en-US')}" />
+        <button data-m="1" ${rem<it.price?'disabled':''}>+</button>
+      </div>
+      <div class="spent">${c>0?'− '+formatKRW(c*it.price)+'  ·  '+c.toLocaleString('en-US')+'개':''}</div>
+      ${it.nobuy
+        ? '<span class="buy note">🏷️ 시세·낙찰·공사비 기준</span>'
+        : `<a class="buy" href="${buyLink(it)}" target="_blank" rel="noopener nofollow sponsored">🛒 실제 가격·구매</a>`}`;
+    const inp=card.querySelector('input');
+    card.querySelectorAll('button').forEach(b=>{b.onclick=()=>change(it.id,parseInt(b.dataset.m,10));});
+    inp.onchange=()=>setQty(it.id,parseInt(inp.value.replace(/[^0-9]/g,''),10)||0);
+    el.appendChild(card);
+  }
+}
+function change(id,delta){
+  const it=ITEMS.find(x=>x.id===id);let c=qty[id]||0;
+  if(delta>0){if(remaining()>=it.price){c+=1;chaching();}}else c=Math.max(0,c-1);
+  qty[id]=c;renderAll();
+}
+function setQty(id,val){
+  const it=ITEMS.find(x=>x.id===id);
+  const others=spent()-((qty[id]||0)*it.price);
+  const maxc=Math.max(0,Math.floor((current.won-others)/it.price));
+  qty[id]=Math.min(val,maxc);chaching();renderAll();
+}
+function renderBalance(){
+  const rem=remaining();
+  document.getElementById('whoName').textContent=current.name;
+  const a=document.getElementById('amount');a.textContent=formatKRW(rem);
+  a.className='amt'+(rem<=0?' zero':(rem/current.won<0.15?' low':''));
+  document.getElementById('bar').style.width=(Math.max(0,rem/current.won)*100)+'%';
+  document.getElementById('meta').textContent=`쓴 돈 ${formatKRW(spent())} · ${(pctSpent()*100).toFixed(pctSpent()<0.01?3:1)}% 사용`;
+  if(rem<=0 && challengeEnd===0 && spent()>0 && !window._ended){window._ended=true;setTimeout(()=>openReceipt(true),250);}
+  if(rem>0)window._ended=false;
+}
+function renderAll(){renderPeople();renderBalance();renderGrid();}
+
+/* challenge */
+function startChallenge(){
+  qty={};current.won=current.won;window._ended=false;
+  challengeEnd=Date.now()+60000;bumpPlays();renderProof();
+  document.getElementById('challengeBtn').textContent='⏹ 챌린지 중…';
+  renderAll();
+  challengeTimer=setInterval(()=>{
+    const left=Math.max(0,Math.ceil((challengeEnd-Date.now())/1000));
+    document.getElementById('countdown').textContent='⏱ '+left+'s';
+    if(left<=0){clearInterval(challengeTimer);challengeTimer=null;challengeEnd=0;
+      document.getElementById('countdown').textContent='';
+      document.getElementById('challengeBtn').textContent='⏱ 60초 챌린지';
+      openReceipt(false,true);}
+  },200);
+}
+function stopChallenge(){
+  if(challengeTimer){clearInterval(challengeTimer);challengeTimer=null;}
+  challengeEnd=0;document.getElementById('countdown').textContent='';
+  document.getElementById('challengeBtn').textContent='⏱ 60초 챌린지';
+}
+document.getElementById('challengeBtn').onclick=()=>{if(challengeTimer)stopChallenge();else startChallenge();};
+
+document.getElementById('soundBtn').onclick=()=>{soundOn=!soundOn;document.getElementById('soundBtn').textContent=soundOn?'🔊':'🔇';if(soundOn)chaching();};
+document.getElementById('search').oninput=(e)=>{searchText=e.target.value.trim();renderAddbar();renderGrid();};
+document.getElementById('resetBtn').onclick=()=>{qty={};stopChallenge();window._ended=false;renderAll();};
+document.getElementById('closeBtn').onclick=()=>document.getElementById('modal').classList.remove('open');
+document.getElementById('receiptBtn').onclick=()=>openReceipt(false);
+document.getElementById('downloadBtn').onclick=()=>{
+  const link=document.createElement('a');link.download=`부자의삶_${current.name}.png`;
+  link.href=document.getElementById('cardCanvas').toDataURL('image/png');link.click();
+};
+document.getElementById('shareBtn').onclick=async()=>{
+  const g=grade();
+  const text=`${current.name} 님의 돈으로 ${formatKRW(spent())} 썼다! (${(pctSpent()*100).toFixed(1)}%) ${g.e} ${g.t}. 나도 부자의 삶 체험하기:`;
+  try{
+    const cv=document.getElementById('cardCanvas');
+    if(navigator.share&&navigator.canShare){
+      const blob=await new Promise(r=>cv.toBlob(r,'image/png'));
+      const file=new File([blob],'spend.png',{type:'image/png'});
+      if(navigator.canShare({files:[file]})){await navigator.share({text,files:[file]});return;}
+      await navigator.share({text});return;
+    }
+    await navigator.clipboard.writeText(text);toast('결과 복사 완료! 어디든 붙여넣기 ✨');
+  }catch(e){try{await navigator.clipboard.writeText(text);toast('결과 복사 완료! ✨');}catch(_){}}
+};
+
+let toastT;function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),2200);}
+
+function openReceipt(ended,challenge){
+  bumpPlays();renderProof();
+  const g=grade();
+  document.getElementById('sheetTitle').textContent= challenge? '⏱ 60초 챌린지 결과!' : (ended?'🎉 다 썼다! 당신은 큰손!':'나의 소비 영수증 🧾');
+  document.getElementById('sheetSub').textContent=`등급: ${g.e} ${g.t} · 이미지를 저장해서 자랑하세요!`;
+  drawCard(challenge);document.getElementById('modal').classList.add('open');
+}
+
+function drawCard(challenge){
+  const cv=document.getElementById('cardCanvas');const x=cv.getContext('2d');
+  const W=cv.width,H=cv.height;const g=grade();
+  x.fillStyle='#0e1118';x.fillRect(0,0,W,H);
+  x.fillStyle='#151922';x.fillRect(40,40,W-80,H-80);x.strokeStyle='#2a3242';x.lineWidth=2;x.strokeRect(40,40,W-80,H-80);
+  x.textAlign='center';x.fillStyle='#37e0a6';x.font='bold 52px sans-serif';
+  x.fillText(challenge?'⏱ 60초 챌린지':'🧾 나의 소비 영수증',W/2,134);
+  x.fillStyle='#eef2f8';x.font='bold 40px sans-serif';x.fillText(`${current.emoji} ${current.name} 님의 돈`,W/2,202);
+  x.fillStyle='#9aa6bb';x.font='25px sans-serif';x.fillText(`총 자산 ${formatKRW(current.won)}`,W/2,246);
+  // grade badge
+  x.fillStyle='#ffd34e';x.font='bold 44px sans-serif';x.fillText(`${g.e} ${g.t}`,W/2,316);
+
+  const bought=ITEMS.filter(it=>qty[it.id]>0).sort((a,b)=>(qty[b.id]*b.price)-(qty[a.id]*a.price)).slice(0,8);
+  let y=386;x.textAlign='left';x.font='29px sans-serif';
+  if(bought.length===0){x.fillStyle='#9aa6bb';x.textAlign='center';x.fillText('아직 아무것도 안 샀어요 🥲',W/2,y+30);}
+  for(const it of bought){
+    x.fillStyle='#eef2f8';x.fillText(`${it.emoji} ${it.name} ×${qty[it.id].toLocaleString('en-US')}`,80,y);
+    x.textAlign='right';x.fillStyle='#ff5c7a';x.fillText('− '+formatKRW(qty[it.id]*it.price),W-80,y);
+    x.textAlign='left';y+=54;
+  }
+  y=Math.max(y,860);
+  x.strokeStyle='#2a3242';x.beginPath();x.moveTo(80,y-26);x.lineTo(W-80,y-26);x.stroke();
+  x.fillStyle='#9aa6bb';x.font='29px sans-serif';x.fillText('쓴 돈',80,y+20);
+  x.textAlign='right';x.fillStyle='#ffd34e';x.font='bold 34px sans-serif';x.fillText(formatKRW(spent()),W-80,y+20);
+  x.textAlign='left';x.fillStyle='#9aa6bb';x.font='29px sans-serif';x.fillText('남은 돈',80,y+72);
+  const rem=remaining();x.textAlign='right';x.fillStyle=rem<=0?'#37e0a6':'#eef2f8';x.font='bold 38px sans-serif';x.fillText(formatKRW(rem),W-80,y+74);
+  x.textAlign='left';x.fillStyle='#9aa6bb';x.font='29px sans-serif';x.fillText('사용률',80,y+122);
+  x.textAlign='right';x.fillStyle='#37e0a6';x.font='bold 34px sans-serif';x.fillText((pctSpent()*100).toFixed(1)+'%',W-80,y+122);
+
+  x.textAlign='center';x.fillStyle='#5b6680';x.font='23px sans-serif';
+  x.fillText('당신도 부자의 삶을 체험해 보세요',W/2,H-92);
+  x.fillStyle='#37e0a6';x.font='bold 26px sans-serif';x.fillText('부자의 삶 체험하기',W/2,H-56);
+}
+
+renderProof();renderTabs();renderAll();
+</script>
+</body>
+</html>
