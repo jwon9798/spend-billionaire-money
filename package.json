@@ -1,0 +1,12 @@
+{
+  "name": "spend-billionaire-money",
+  "private": true,
+  "scripts": {
+    "deploy": "wrangler deploy",
+    "dev": "wrangler dev",
+    "images": "python3 generate-images.py"
+  },
+  "devDependencies": {
+    "wrangler": "^4.24.0"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "spend-billionaire",
+  "compatibility_date": "2026-07-03",
+  "assets": {
+    "directory": "./public"
+  },
+  "routes": [
+    {
+      "pattern": "spend-billionaire.jwonlabs.com",
+      "custom_domain": true
+    }
+  ]
+}

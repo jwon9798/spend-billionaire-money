@@ -3,7 +3,7 @@
 from PIL import Image, ImageDraw, ImageFont
 import os
 
-ROOT = os.path.dirname(os.path.abspath(__file__))
+ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "public")
 FONT = "/usr/share/fonts/truetype/wqy/wqy-microhei.ttc"
 ACCENT = (55, 224, 166)
 ACCENT2 = (255, 211, 78)
