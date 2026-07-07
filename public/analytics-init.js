@@ -1,5 +1,5 @@
 (function () {
-  var id = (window.SITE && window.SITE.ga4MeasurementId) || 'G-TRNR6LECH2';
+  var id = (window.SITE && window.SITE.ga4MeasurementId) || 'G-C24JK5CTF0';
 
   window.dataLayer = window.dataLayer || [];
   window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
