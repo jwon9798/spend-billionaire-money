@@ -1,11 +1,19 @@
 (function () {
   var cfg = window.ADSENSE;
-  if (!cfg || !cfg.client || cfg.client.indexOf('XXXX') >= 0) return;
-  var s = document.createElement('script');
-  s.async = true;
-  s.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=' + encodeURIComponent(cfg.client);
-  s.crossOrigin = 'anonymous';
-  document.head.appendChild(s);
+  var loaded = false;
+
+  window.loadAdsense = function () {
+    if (loaded || !cfg || !cfg.client || cfg.client.indexOf('XXXX') >= 0) return;
+    loaded = true;
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=' + encodeURIComponent(cfg.client);
+    s.crossOrigin = 'anonymous';
+    s.onload = injectAdSlots;
+    document.head.appendChild(s);
+    if (window.adsbygoogle) injectAdSlots();
+  };
+
   function pushAd(el, slotKey) {
     var slot = slotKey && cfg.slots && cfg.slots[slotKey];
     el.innerHTML = '';
@@ -20,9 +28,10 @@
     el.appendChild(ins);
     try { (window.adsbygoogle = window.adsbygoogle || []).push({}); } catch (e) {}
   }
-  document.addEventListener('DOMContentLoaded', function () {
+
+  function injectAdSlots() {
     document.querySelectorAll('.ad-slot[data-ad-pos]').forEach(function (el) {
       pushAd(el, el.getAttribute('data-ad-pos'));
     });
-  });
+  }
 })();

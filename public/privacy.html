@@ -4,10 +4,12 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>개인정보처리방침 — 부자의 삶 체험하기</title>
-<meta name="description" content="부자의 삶 체험하기의 개인정보처리방침. Google AdSense 광고, 쿠키 사용, 데이터 보관에 관한 안내입니다." />
+<meta name="description" content="부자의 삶 체험하기의 개인정보처리방침. Google Analytics 4, Google AdSense, 쿠키·Consent Mode 사용에 관한 안내입니다." />
 <meta name="robots" content="index, follow" />
 <link rel="icon" type="image/png" href="icon.png" sizes="512x512" />
 <link rel="stylesheet" href="site.css" />
+<script src="site-config.js"></script>
+<script src="analytics-init.js"></script>
 <script src="site.js" defer></script>
 </head>
 <body>
@@ -31,7 +33,7 @@
 
 <header class="page-hero">
   <h1>개인정보처리방침</h1>
-  <p>본 사이트는 방문자의 개인정보를 존중하며, 관련 법령과 Google AdSense 정책을 준수합니다.</p>
+  <p>본 사이트는 방문자의 개인정보를 존중하며, 관련 법령과 Google Analytics·AdSense 정책을 준수합니다.</p>
 </header>
 
 <main class="content">
@@ -42,7 +44,7 @@
   <ul>
     <li><strong>기기 로컬 저장 정보</strong>: 게임 플레이 횟수, 사운드 설정 등은 방문자의 브라우저 localStorage에만 저장되며 서버로 전송되지 않습니다.</li>
     <li><strong>접속 로그</strong>: 호스팅 사업자(Cloudflare)가 IP 주소, 브라우저 종류, 접속 시각 등 서버 로그를 자동 수집할 수 있습니다.</li>
-    <li><strong>쿠키 및 유사 기술</strong>: Google AdSense 등 제3자 광고 서비스가 광고 게재·측정을 위해 쿠키를 사용할 수 있습니다.</li>
+    <li><strong>쿠키 및 유사 기술</strong>: Google Analytics 4(GA4), Google AdSense 등 제3자 서비스가 방문 통계·광고 게재를 위해 쿠키를 사용할 수 있습니다. 동의 전에는 Google Consent Mode에 따라 분석·광고 쿠키가 차단됩니다.</li>
     <li><strong>문의 시 제공 정보</strong>: 이메일 문의 시 발신자 주소와 문의 내용이 운영자에게 전달됩니다.</li>
   </ul>
 
@@ -50,11 +52,23 @@
   <ul>
     <li>게임 기능 제공 및 이용자 경험 개선</li>
     <li>사이트 안정성·보안 유지</li>
+    <li>방문 통계 분석 및 서비스 개선(Google Analytics 4)</li>
     <li>광고 게재 및 광고 성과 측정(Google AdSense)</li>
     <li>문의 응대 및 서비스 관련 안내</li>
   </ul>
 
-  <h2>3. Google AdSense 및 제3자 광고</h2>
+  <h2>3. Google Analytics 4 (GA4)</h2>
+  <p>본 사이트는 방문자 통계 파악 및 서비스 개선을 위해 Google LLC가 제공하는 <strong>Google Analytics 4</strong>를 사용합니다.</p>
+  <ul>
+    <li><strong>측정 ID</strong>: G-TRNR6LECH2</li>
+    <li><strong>수집 항목(예시)</strong>: 방문 페이지, 체류 시간, 유입 경로, 브라우저·기기 유형, 대략적인 지역(국가·도시), 화면 해상도</li>
+    <li><strong>이용 목적</strong>: 인기 페이지·이용 패턴 분석, 오류·성능 개선, 콘텐츠 기획</li>
+    <li><strong>처리 위탁</strong>: Google LLC (미국). Google의 개인정보 처리: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google 개인정보처리방침</a></li>
+    <li><strong>Consent Mode</strong>: 쿠키 배너에서 동의하기 전까지 <code>analytics_storage</code> 등이 거부 상태로 설정되며, 동의 후에만 분석 쿠키가 활성화됩니다.</li>
+    <li><strong>옵트아웃</strong>: 쿠키 배너에서 "필수만(거부)" 선택, 브라우저 쿠키 차단, 또는 <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener">Google Analytics 옵트아웃 애드온</a></li>
+  </ul>
+
+  <h2>4. Google AdSense 및 제3자 광고</h2>
   <p>본 사이트는 Google LLC가 제공하는 <strong>Google AdSense</strong> 프로그램을 통해 광고를 게재할 수 있습니다. Google 및 제3자 공급업체는 쿠키를 사용하여 방문자의 이전 방문 기록을 바탕으로 맞춤 광고를 제공할 수 있습니다.</p>
   <ul>
     <li>Google의 광고 쿠키 사용에 관한 자세한 내용: <a href="https://policies.google.com/technologies/ads" target="_blank" rel="noopener">Google 광고 정책</a></li>
@@ -63,26 +77,27 @@
   </ul>
   <p>EU/EEA·영국 방문자의 경우, 쿠키 배너를 통해 동의 여부를 선택할 수 있습니다. 동의하지 않아도 게임 이용은 가능하나, 맞춤형 광고가 제한될 수 있습니다.</p>
 
-  <h2>4. 제3자 링크</h2>
+  <h2>5. 제3자 링크</h2>
   <p>게임 내 일부 아이템의 "실제 가격·구매" 링크는 쿠팡, 네이버쇼핑 등 외부 쇼핑몰로 연결됩니다. 해당 사이트의 개인정보처리방침은 각 사업자의 정책을 따릅니다.</p>
 
-  <h2>5. 보관 기간</h2>
+  <h2>6. 보관 기간</h2>
   <ul>
     <li>localStorage 데이터: 방문자가 브라우저 데이터를 삭제할 때까지 기기에 보관</li>
-    <li>서버 접속 로그: 호스팅 사업자 정책에 따름(일반적으로 수개월 이내)</li>
+    <li>GA4 데이터: Google 정책에 따름(기본 2개월~14개월, 계정 설정에 따라 상이)</li>
+    <li>서버 접속 로그: Cloudflare 정책에 따름(일반적으로 수개월 이내)</li>
     <li>문의 이메일: 응대 완료 후 최대 1년 보관 후 파기</li>
   </ul>
 
-  <h2>6. 이용자의 권리</h2>
-  <p>방문자는 브라우저 설정에서 쿠키를 차단·삭제하거나, localStorage를 초기화할 수 있습니다. 개인정보 관련 문의는 <a href="contact.html">문의하기</a> 페이지 또는 jwon9798@gmail.com으로 연락해 주세요.</p>
+  <h2>7. 이용자의 권리</h2>
+  <p>방문자는 브라우저 설정에서 쿠키를 차단·삭제하거나, localStorage를 초기화할 수 있습니다. 쿠키 배너에서 언제든 거부를 선택할 수 있습니다. 개인정보 관련 문의는 <a href="contact.html">문의하기</a> 페이지 또는 jwon9798@gmail.com으로 연락해 주세요.</p>
 
-  <h2>7. 아동의 개인정보</h2>
+  <h2>8. 아동의 개인정보</h2>
   <p>본 사이트는 만 14세 미만 아동을 대상으로 하지 않으며, 고의로 아동의 개인정보를 수집하지 않습니다.</p>
 
-  <h2>8. 방침 변경</h2>
+  <h2>9. 방침 변경</h2>
   <p>본 방침은 법령·서비스 변경에 따라 수정될 수 있으며, 변경 시 본 페이지에 게시합니다.</p>
 
-  <p class="updated">최종 수정일: 2026년 6월 26일</p>
+  <p class="updated">최종 수정일: 2026년 7월 7일</p>
 </main>
 
 <footer class="site-footer">
@@ -100,12 +115,6 @@
   <p class="disclaimer">© 2026 JWON Labs · 부자의 삶 체험하기 · 문의: jwon9798@gmail.com · 재미용 시뮬레이션 게임</p>
 </footer>
 
-<div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="쿠키 안내">
-  <p>본 사이트는 Google AdSense 광고 제공을 위해 쿠키를 사용할 수 있습니다. <a href="privacy.html">개인정보처리방침</a>을 확인해 주세요.</p>
-  <div class="btns">
-    <button class="accept" type="button" onclick="acceptCookies()">동의</button>
-    <button class="decline" type="button" onclick="declineCookies()">거부</button>
-  </div>
-</div>
+<div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="쿠키 안내"></div>
 </body>
 </html>
