@@ -30,16 +30,12 @@
   window.updateGoogleConsent = function (granted) {
     var state = granted ? 'granted' : 'denied';
     gtag('consent', 'update', {
-      ad_storage: state,
-      ad_user_data: state,
-      ad_personalization: state,
       analytics_storage: state
     });
     if (granted) {
       gtag('config', id, {
         anonymize_ip: true,
-        allow_google_signals: true,
-        allow_ad_personalization_signals: true
+        allow_google_signals: true
       });
     }
   };

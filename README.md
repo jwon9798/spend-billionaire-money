@@ -35,11 +35,18 @@ wrangler.jsonc    # Worker + custom_domain 설정
 generate-images.py # icon.png / og-cover.png 재생성
 ```
 
-## AdSense
+## AdSense (승인 전)
 
-- Publisher ID: `pub-4911271163170466`
-- `public/ads.txt` — 서브도메인 루트에 배포됨
-- `jwonlabs.com/ads.txt`에 `subdomain=spend-billionaire.jwonlabs.com` 추가 권장
+현재 **AdSense 코드·광고 placeholder·ads.txt는 서브도메인에서 비활성** 상태입니다. 승인은 `jwonlabs.com`에서 진행하세요.
+
+승인 후 복원:
+1. `public/ads.txt` 복원
+2. `site-config.js` → `adsenseEnabled: true`
+3. `index.html`에 `ads-config.js`, `ads-init.js` 및 광고 슬롯 추가
+
+## 제휴 링크
+
+`COUPANG_PARTNER_TAG`가 비어 있으면 **네이버쇼핑 일반 검색**만 사용합니다 (제휴 수수료 없음).
 
 ## 면책
 

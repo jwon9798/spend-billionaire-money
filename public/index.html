@@ -22,8 +22,6 @@
 <link rel="stylesheet" href="site.css" />
 <script src="site-config.js"></script>
 <script src="analytics-init.js"></script>
-<script src="ads-config.js"></script>
-<script src="ads-init.js" defer></script>
 <script src="site.js" defer></script>
 <style>
   :root{
@@ -109,10 +107,6 @@
   .addbar a{color:var(--accent2);font-weight:600}
   .addbar button{cursor:pointer;background:var(--accent);color:#062018;border:none;border-radius:8px;padding:8px 13px;font-weight:700;font-size:13px}
 
-  .ad-slot{margin:18px 0;min-height:100px;display:flex;align-items:center;justify-content:center;
-    border-radius:12px;overflow:hidden}
-  .ad-slot:not(.ad-live){border:1px dashed var(--line);color:#5b6680;font-size:12px}
-
   .modal{position:fixed;inset:0;background:rgba(0,0,0,.65);display:none;align-items:center;justify-content:center;z-index:60;padding:16px}
   .modal.open{display:flex}
   .sheet{background:var(--panel);border:1px solid var(--line);border-radius:18px;max-width:460px;width:100%;max-height:92vh;overflow:auto;padding:18px}
@@ -197,9 +191,11 @@
   </div>
   <div class="addbar" id="addbar"></div>
   <div class="tabs" id="tabs"></div>
-  <div class="ad-slot" data-ad-pos="top">광고 로딩 중…</div>
+  <div class="affiliate-notice" role="note">
+    <strong>외부 쇼핑 링크 안내</strong>
+    일부 아이템의 「실제 가격 보기」는 <b>네이버쇼핑 검색</b>으로 연결됩니다. 현재 제휴(파트너스) 링크는 사용하지 않으며, JWON Labs가 운영하는 <b>무료 서비스</b>입니다. 자세한 내용은 <a href="terms.html">이용약관</a>을 참고하세요.
+  </div>
   <div class="grid" id="grid"></div>
-  <div class="ad-slot" data-ad-pos="bottom">광고 로딩 중…</div>
 </div>
 
 <footer class="site-footer">
@@ -217,13 +213,12 @@
   </nav>
   <p class="disclaimer">
     재미로 보는 게임입니다 · 부자 자산: Forbes Korea「2026 대한민국 50대 부자」(2026.4.28·3.27 장마감) / Forbes「World's Billionaires 2026」(2026.3.10·3.1 환율) · 가격: 2026 공식 출고가·국토부 실거래·Forbes·Reuters 등 공개 자료<br/>
-    환율: 한국 부자 ≒1,478원/$, 글로벌 부자 ≒1,380원/$ · 각 아이템의 '🛒'는 쇼핑몰 검색, '🏷️'는 시세·시총·낙찰가 기준 · 일부 링크는 제휴(쿠팡 파트너스)일 수 있습니다<br/>
-    © 2026 JWON Labs · 부자의 삶 체험하기 · 문의: jwon9798@gmail.com
+    환율: 한국 부자 ≒1,478원/$, 글로벌 부자 ≒1,380원/$ · 각 아이템의 '🔎'는 네이버쇼핑 검색, '🏷️'는 시세·시총·낙찰가 기준<br/>
+    © 2026 JWON Labs · 부자의 삶 체험하기 · 무료 서비스 · 문의: jwon9798@gmail.com
   </p>
 </footer>
 
 <div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="쿠키 안내"></div>
-</div>
 
 <div class="modal" id="modal">
   <div class="sheet">
@@ -396,12 +391,20 @@ let searchText = '';
 let soundOn = true;
 let challengeEnd = 0, challengeTimer = null;
 
-// 쿠팡 파트너스 사용 시 본인 트래킹 ID로 교체 (예: 'AF1234567')
+// 쿠팡 파트너스 태그가 등록되면 아래에 ID 입력 (예: 'AF1234567'). 비어 있으면 제휴 링크 없이 네이버쇼핑 검색만 사용합니다.
 const COUPANG_PARTNER_TAG = '';
 function buyLink(it){
   if(it.link) return it.link;
-  const base = 'https://www.coupang.com/np/search?q='+encodeURIComponent(it.name);
-  return base; // 파트너스 적용 시 딥링크 변환 필요(서버측 HMAC 서명)
+  if(COUPANG_PARTNER_TAG){
+    return 'https://www.coupang.com/np/search?q='+encodeURIComponent(it.name);
+  }
+  return 'https://search.shopping.naver.com/search/all?query='+encodeURIComponent(it.name);
+}
+function buyLinkRel(){
+  return COUPANG_PARTNER_TAG ? 'noopener noreferrer sponsored' : 'noopener noreferrer';
+}
+function buyLinkLabel(){
+  return COUPANG_PARTNER_TAG ? '🛒 쿠팡에서 가격 보기' : '🔎 네이버쇼핑에서 가격 보기';
 }
 
 function formatKRW(n){
@@ -522,7 +525,7 @@ function renderGrid(){
       <div class="spent">${c>0?'− '+formatKRW(c*it.price)+'  ·  '+c.toLocaleString('en-US')+'개':''}</div>
       ${it.nobuy
         ? '<span class="buy note">🏷️ 시세·낙찰·공사비 기준</span>'
-        : `<a class="buy" href="${buyLink(it)}" target="_blank" rel="noopener nofollow sponsored">🛒 실제 가격·구매</a>`}`;
+        : `<a class="buy" href="${buyLink(it)}" target="_blank" rel="${buyLinkRel()}">${buyLinkLabel()}</a>`}`;
     const inp=card.querySelector('input');
     card.querySelectorAll('button').forEach(b=>{b.onclick=()=>change(it.id,parseInt(b.dataset.m,10));});
     inp.onchange=()=>setQty(it.id,parseInt(inp.value.replace(/[^0-9]/g,''),10)||0);

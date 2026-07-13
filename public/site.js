@@ -1,13 +1,14 @@
 (function () {
   var KEY = 'cookie_consent';
   var BANNER_HTML =
-    '<p>본 사이트는 <strong>Google Analytics 4</strong>(방문 통계)와 <strong>Google AdSense</strong>(광고)를 위해 쿠키를 사용합니다. ' +
-    '동의 시 분석·맞춤 광고 쿠키가 설정되며, 거부해도 게임 이용은 가능합니다. ' +
+    '<p>본 사이트는 JWON Labs가 제공하는 <strong>무료 서비스</strong>입니다. ' +
+    '<strong>Google Analytics 4</strong>(방문 통계)를 위해 쿠키를 사용하며, 동의 시에만 분석 쿠키가 설정됩니다. ' +
+    '거부해도 게임 이용은 가능합니다. ' +
     '<a href="privacy.html">서비스 개인정보처리방침</a> · ' +
     '<a href="https://jwonlabs.com/privacy.html">JWON Labs 공통 정책</a></p>' +
     '<div class="btns">' +
-    '<button class="accept" type="button" data-cookie="accept">모두 동의</button>' +
-    '<button class="decline" type="button" data-cookie="decline">필수만(거부)</button>' +
+    '<button class="accept" type="button" data-cookie="accept">동의</button>' +
+    '<button class="decline" type="button" data-cookie="decline">거부</button>' +
     '</div>';
 
   function showBanner() {
@@ -23,9 +24,6 @@
   function applyConsent(granted) {
     if (typeof window.updateGoogleConsent === 'function') {
       window.updateGoogleConsent(granted);
-    }
-    if (granted && typeof window.loadAdsense === 'function') {
-      window.loadAdsense();
     }
   }
 

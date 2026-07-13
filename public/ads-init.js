@@ -1,4 +1,6 @@
+/** AdSense — 승인 전 비활성. site-config.js adsenseEnabled=true 후 index.html에서 로드 */
 (function () {
+  if (!window.SITE || !window.SITE.adsenseEnabled) return;
   var cfg = window.ADSENSE;
   var loaded = false;
 
